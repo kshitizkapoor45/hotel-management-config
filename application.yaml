@@ -1,3 +1,13 @@
+spring:
+  application:
+    name: hotel-ai-service
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -8,10 +18,20 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
+app:
+  rabbitmq:
+    exchange: hotel-exchange
+    queues:
+      rating: rating-queue
+      hotel: hotel-embedding-queue
+    routing:
+      ratingEmbedding: hotel.rating
+      hotelEmbedding: hotel.embedding
+
 logging:
   level:
     org.springframework: INFO
-    com.club: DEBUG
+    com.kapoor: DEBUG
 
   file:
     name: logs/spring-boot-application.log
