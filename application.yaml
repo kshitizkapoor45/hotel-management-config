@@ -21,9 +21,11 @@ app:
     queues:
       rating: rating-queue
       hotel: hotel-embedding-queue
+      user: user-queue
     routing:
       ratingEmbedding: hotel.rating
       hotelEmbedding: hotel.embedding
+      userEmbedding: user-embedding
 
 logging:
   level:
