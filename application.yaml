@@ -25,7 +25,7 @@ app:
     routing:
       ratingEmbedding: hotel.rating
       hotelEmbedding: hotel.embedding
-      userEmbedding: user-embedding
+      userEmbedding: user.embedding
 
 logging:
   level:
