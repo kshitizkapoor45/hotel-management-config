@@ -48,6 +48,10 @@ app:
       hotelEmbedding: hotel.embedding
       userEmbedding: user.embedding
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
   tracing:
     sampling:
       probability: 1.0
