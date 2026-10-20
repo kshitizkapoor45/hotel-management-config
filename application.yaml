@@ -4,8 +4,11 @@ spring:
     port: 5672
     username: guest
     password: guest
+    template:
+      observation-enabled: true
     listener:
       simple:
+        observation-enabled: true
         acknowledge-mode: auto
         default-requeue-rejected: false
         retry:
