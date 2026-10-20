@@ -4,7 +4,16 @@ spring:
     port: 5672
     username: guest
     password: guest
-
+    listener:
+      simple:
+        acknowledge-mode: auto
+        default-requeue-rejected: false
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000
+          multiplier: 2
+          max-interval: 10000
 eureka:
   instance:
     prefer-ip-address: true
@@ -14,10 +23,19 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-
 app:
   rabbitmq:
     exchange: hotel-exchange
+    dead-letter:
+      exchange: hotel-dlx
+      queues:
+        rating: rating-dlq
+        hotel: hotel-embedding-dlq
+        user: user-dlq
+      routing:
+        rating: rating.failed
+        hotel: hotel.failed
+        user: user.failed
     queues:
       rating: rating-queue
       hotel: hotel-embedding-queue
@@ -26,15 +44,12 @@ app:
       ratingEmbedding: hotel.rating
       hotelEmbedding: hotel.embedding
       userEmbedding: user.embedding
-
 logging:
   level:
     org.springframework: INFO
     com.kapoor: DEBUG
-
   file:
     name: logs/spring-boot-application.log
-
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
